@@ -9,7 +9,7 @@ CONNECTION_STRING = "sites_queue"
 
 def handle_message(ch, method, properties, body):
     """Callback function to handle a mesaage from the queue"""
-    message = json.loads(body.decode("UTF8").replace("'", '"'))
+    message = json.loads(body)
     logging.info(
         MAGENTA + BOLD + "Received message : " + ENDC + CYAN + str(message) + ENDC
     )

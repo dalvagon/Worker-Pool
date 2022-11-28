@@ -1,3 +1,4 @@
+import json
 import os
 import logging
 import pika
@@ -49,7 +50,7 @@ def create_queue():
         }
 
         channel.basic_publish(
-            exchange="", routing_key=CONNECTION_STRING, body=str(message)
+            exchange="", routing_key=CONNECTION_STRING, body=json.dumps(message)
         )
 
     connection.close()

@@ -22,7 +22,9 @@ def consume():
     """Consumes the messages pushed by the master onto the queue"""
     logging.info(MAGENTA + BOLD + "Connecting..." + ENDC)
 
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost"))
+    credentials = pika.PlainCredentials("dalvagon", "dalvagon")
+    parameters = pika.ConnectionParameters("localhost", credentials=credentials)
+    connection = pika.BlockingConnection(parameters=parameters)
     channel = connection.channel()
     channel.queue_declare(queue=CONNECTION_STRING)
     channel.basic_qos(prefetch_count=1)

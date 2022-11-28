@@ -12,7 +12,9 @@ def create_queue():
     """Creates the queue by pushing page links and the page download locations onto it"""
     logging.info(MAGENTA + BOLD + "Creating connection for queue..." + ENDC)
 
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost"))
+    credentials = pika.PlainCredentials("dalvagon", "dalvagon")
+    parameters = pika.ConnectionParameters("localhost", credentials=credentials)
+    connection = pika.BlockingConnection(parameters=parameters)
     channel = connection.channel()
     channel.queue_delete(queue=CONNECTION_STRING)
     channel.queue_declare(queue=CONNECTION_STRING)

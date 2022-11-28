@@ -7,6 +7,6 @@ def get_countries():
     API_URL = "https://restcountries.com/v3.1/all"
     response = requests.get(API_URL)
     content = response.json()
-    countries = [content[index]["name"]["common"] for index in range(len(content))]
+    countries = [country["name"]["common"] for country in content]
 
     return countries

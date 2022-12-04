@@ -7,10 +7,7 @@ from util.colors import MAGENTA, BLUE, CYAN, GREEN, YELLOW, RED, ENDC, BOLD, UND
 
 
 def download_page(url, location):
-    """Downloads a page from the address specified by link in the directory specified by the location
-    url -- the link to the page to be doenloaded
-    location -- thr path to the directory where the page will be downloaded
-    """
+    """Download a page from the address specified by url in the directory specified by the location"""
     try:
         response = request.urlopen(url)
         soup = BeautifulSoup(response.read(), features="html.parser")
@@ -35,4 +32,4 @@ def download_page(url, location):
             + ENDC
         )
     except Exception as e:
-        logging.error(str(e))
+        logging.error(RED + BOLD + str(e) + ENDC)

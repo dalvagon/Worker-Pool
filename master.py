@@ -9,7 +9,7 @@ CONNECTION_STRING = "sites_queue"
 
 
 def create_queue():
-    """Creates the queue by pushing page links and the page download locations onto it"""
+    """Create the queue by pushing page links and the page download locations onto it"""
     logging.info(MAGENTA + BOLD + "Creating connection for queue..." + ENDC)
 
     credentials = pika.PlainCredentials("dalvagon", "dalvagon")
@@ -63,6 +63,6 @@ if __name__ == "__main__":
     try:
         create_queue()
     except KeyboardInterrupt:
-        logging.error(MAGENTA + BOLD + "Interrupted" + ENDC)
+        logging.error(RED + BOLD + "Interrupted" + ENDC)
     except Exception as e:
-        logging.error(str(e))
+        logging.error(RED + BOLD + str(e) + ENDC)

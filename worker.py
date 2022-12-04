@@ -8,7 +8,7 @@ CONNECTION_STRING = "sites_queue"
 
 
 def handle_message(ch, method, properties, body):
-    """Callback function to handle a mesaage from the queue"""
+    """Handle a mesaage from the queue"""
     message = json.loads(body)
     logging.info(
         MAGENTA + BOLD + "Received message : " + ENDC + CYAN + str(message) + ENDC
@@ -19,7 +19,7 @@ def handle_message(ch, method, properties, body):
 
 
 def consume():
-    """Consumes the messages pushed by the master onto the queue"""
+    """Consume the messages pushed by the master onto the queue"""
     logging.info(MAGENTA + BOLD + "Connecting..." + ENDC)
 
     credentials = pika.PlainCredentials("dalvagon", "dalvagon")
@@ -42,6 +42,6 @@ if __name__ == "__main__":
     try:
         consume()
     except KeyboardInterrupt:
-        logging.error(MAGENTA + BOLD + "Interrupted" + ENDC)
+        logging.error(RED + BOLD + "Interrupted" + ENDC)
     except Exception as e:
         logging.error(str(e))

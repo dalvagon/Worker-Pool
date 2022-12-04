@@ -1,19 +1,15 @@
 # WorkerPool
 
-Name: WorkerPool ID:11 Difficulty: A Propose: MKY
-Dezvoltati un asamblu de descarcare pagini web ce va fi format dintr-un script master ( ce va
-programa primele 500 de pagini din fiecare tara conform alexa :
-https://www.alexa.com/topsites/countries ) si un script worker ( script ce va descarca
-continutul paginilor.
-Master.py va scrie intr-o coada ( redis sau rabbitmq ) informațiile despre paginile ce trebuiesc
-descarate iar worker.py ( pot fi mai multe instanțe ) va prelua din acea coada informațiile și va
-face descarcarea.
-Pentru fiecare pagina ce trebuie descarcata master.py va stoca in coada un json cu
-urmatoarele informatii:
-Link
-LocatieDisk ( folderul in care se va salva link-ul )
-INPUT:
-Coada de redis/rabbit
-OUTPUT:
-Fisierele descarcate in locatiile specificate
-Logurile programelor worker.py si master.py precum si erorile aparute
+11. WorkerPool
+    Develop a website downloader consisting of a master script which will push the links of pages containig
+    info about countries (https://www.infoplease.com/countries/{country_name}) onto a Rabbitmq queue
+    and a worker script which will download the pages.
+    Master.py will push onto the Rabbitmq queue the links of the pages than need to be downloaded and the download locations for each of them.
+    Worker.py (multiple instances) will read the information from the queue and download the pages.
+
+    For each page that need to be downloaded, master.py will save in the queue a json object containing the link to the page and the disk location(the directory where the page will be downloaded)
+    INPUT:
+    The Rabbitmq queue
+    OUTPUT:
+    The files downloaded in the specified locations
+    The logs for worker.py si master.py and the handling for exceptions

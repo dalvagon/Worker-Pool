@@ -1,5 +1,3 @@
-# WorkerPool
-
 <h1>11. WorkerPool</h1>
 <p>
 Develop a website downloader consisting of a master script which will push the links of pages containig
@@ -16,9 +14,9 @@ Worker.py (multiple instances) will read the information from the queue and down
 For each page that need to be downloaded, master.py will save in the queue a json object containing the link to the page and the disk location(the directory where the page will be downloaded)
 </p>
 <p>
-<b>INPUT:</b>\
-The Rabbitmq queue\
-<b>OUTPUT:</b>\
-The files downloaded in the specified locations\
-The logs for worker.py si master.py and the handling for exceptions\
+<b>INPUT:</b><br/>
+The Rabbitmq queue<br/>
+<b>OUTPUT:</b><br/>
+The files downloaded in the specified locations<br/>
+The logs for worker.py si master.py and the handling for exceptions
 </p>

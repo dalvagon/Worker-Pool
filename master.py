@@ -20,40 +20,71 @@ def create_queue():
     channel.queue_declare(queue=CONNECTION_STRING)
 
     logging.info(GREEN + BOLD + "Connection created" + ENDC)
+    for root, dirs, files in os.walk(os.path.join(".", "pages"), topdown=False):
+        for file in files:
+            url = os.path.join(root, file)
+            location = os.path.join(".", "pagess", file)
+            logging.info(
+                MAGENTA
+                + BOLD
+                + "Pushing "
+                + ENDC
+                + CYAN
+                + UNDERLINE
+                + url
+                + ENDC
+                + MAGENTA
+                + BOLD
+                + " onto the queue. The page will be downloaded in "
+                + ENDC
+                + BLUE
+                + UNDERLINE
+                + location
+                + ENDC
+            )
 
-    countries = get_countries()
-    countries.sort()
-    for country in countries:
-        country_name = country.replace(" ", "")
-        url = f"https://www.infoplease.com/countries/{country_name}"
-        location = os.path.join(".", "pages", f"{country_name}")
-        logging.info(
-            MAGENTA
-            + BOLD
-            + "Pushing "
-            + ENDC
-            + CYAN
-            + UNDERLINE
-            + url
-            + ENDC
-            + MAGENTA
-            + BOLD
-            + " onto the queue. The page will be downloaded in "
-            + ENDC
-            + BLUE
-            + UNDERLINE
-            + location
-            + ENDC
-        )
+            message = {
+                "url": url,
+                "location": location,
+            }
 
-        message = {
-            "url": url,
-            "location": location,
-        }
+            channel.basic_publish(
+                exchange="", routing_key=CONNECTION_STRING, body=json.dumps(message)
+            )
 
-        channel.basic_publish(
-            exchange="", routing_key=CONNECTION_STRING, body=json.dumps(message)
-        )
+    # countries = get_countries()
+    # countries.sort()
+    # for country in countries:
+    #     country_name = country.replace(" ", "")
+    #     url = f"https://www.infoplease.com/countries/{country_name}"
+    #     location = os.path.join(".", "pages", f"{country_name}")
+    #     logging.info(
+    #         MAGENTA
+    #         + BOLD
+    #         + "Pushing "
+    #         + ENDC
+    #         + CYAN
+    #         + UNDERLINE
+    #         + url
+    #         + ENDC
+    #         + MAGENTA
+    #         + BOLD
+    #         + " onto the queue. The page will be downloaded in "
+    #         + ENDC
+    #         + BLUE
+    #         + UNDERLINE
+    #         + location
+    #         + ENDC
+    #     )
+
+    #     message = {
+    #         "url": url,
+    #         "location": location,
+    #     }
+
+    #     channel.basic_publish(
+    #         exchange="", routing_key=CONNECTION_STRING, body=json.dumps(message)
+    #     )
 
     connection.close()
 
